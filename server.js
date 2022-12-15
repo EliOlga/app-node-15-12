@@ -3,8 +3,6 @@ const bodyParser = require('body-parser')
 const {MongoClient} = require("mongodb");
 const app = express();
 
-app.set('view engine', 'ejs')
-
 var connectionString = 'mongodb+srv://admin:admin@cluster0.2otcdux.mongodb.net/?retryWrites=true&w=majority'
 
 // il faut tout mettre les use, listen, get, post a l'interieur du .then.
@@ -16,6 +14,9 @@ MongoClient
 		console.log('Connected to Database')
 		const db = client.db('st-test')
 		const quotesCollection = db.collection('quotes')
+		app.set('view engine', 'ejs')
+		app.set("views", __dirname + "/views");
+
 		app.use(bodyParser.urlencoded({extended: true}))
 
 		app.listen(3000, function () {
@@ -33,12 +34,12 @@ MongoClient
 
 					// exemple de syntaxe pour render avec ejs:
 					// res.render(view, locals)
+
+					// ancienne facon en passant par index html
+					//res.sendFile(__dirname + '/index.html')
 				})
 				.catch(error => console.error(error))
 
-
-			// ancienne facon en passant par index html
-			//res.sendFile(__dirname + '/index.html')
 		})
 
 		/*
@@ -69,10 +70,6 @@ MongoClient
 					console.log(req.body)
 				})
 
-				/!*app.use(/!* ... *!/)
-				app.get(/!* ... *!/)
-				app.post(/!* ... *!/)
-				app.listen(/!* ... *!/)*!/
 			})
 			.catch(console.error)
 		*/
@@ -81,14 +78,11 @@ MongoClient
 			quotesCollection.insertOne(req.body)
 
 				.then(result => {
-					console.log(result)
-
+					res.redirect('/')
+					// console.log(result);
 				})
-
 				.catch(error => console.error(error))
 		})
-
 	})
-
 	.catch(console.error)
 

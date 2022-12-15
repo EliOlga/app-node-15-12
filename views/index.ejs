@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>App node</title></head>
-<body><h1>App node - page index.ejs</h1>
+    <title>App node</title>
+</head>
+<body>
+    <h1>App node - page index.ejs</h1>
     <form action="/quotes" method="POST">
         <input type="text" placeholder="name" name="name"/>
         <input type="text" placeholder="quote" name="quote"/>
@@ -13,7 +15,7 @@
     <h2>Mes quotes</h2>
     <ul class="quotes">
         <!-- Loop through quotes -->
-        <% for(var i = 0; i < quotes.length; i++) {%>
+        <% for(var i = 0; i < quotes.length; i++) { %>
             <li class="quote">
                 <!-- Output name from the iterated quote object -->
                 <span><%= quotes[i].name %></span>:
