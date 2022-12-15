@@ -29,7 +29,12 @@ MongoClient
 			db.collection('quotes').find().toArray()
 				.then(results => {console.log(results)})
 				.catch(error => console.error(error))
-			res.sendFile(__dirname + '/index.html')
+
+			// exemple de syntaxe pour render avec ejs:
+			// res.render(view, locals)
+			res.render('index.ejs', {})
+			// ancienne facon en passant par index html
+			//res.sendFile(__dirname + '/index.html')
 		})
 
 		/*
