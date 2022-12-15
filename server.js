@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 const {MongoClient} = require("mongodb");
 const app = express();
 
+app.set('view engine', 'ejs')
+
 var connectionString = 'mongodb+srv://admin:admin@cluster0.2otcdux.mongodb.net/?retryWrites=true&w=majority'
 
 // il faut tout mettre les use, listen, get, post a l'interieur du .then.
@@ -69,7 +71,10 @@ MongoClient
 
 			quotesCollection.insertOne(req.body)
 
-				.then(result => { console.log(result) })
+				.then(result => {
+					console.log(result)
+
+				})
 
 				.catch(error => console.error(error)) })
 
