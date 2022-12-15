@@ -23,16 +23,20 @@ MongoClient
 		})
 
 
-		app.get('/', (req, res) =>{
+		app.get('/', (req, res) => {
 			/*const cursor = db.collection('quotes').find()
 			console.log(cursor)*/
 			db.collection('quotes').find().toArray()
-				.then(results => {console.log(results)})
+				.then(results => {
+					//	console.log(results)
+					res.render('index.ejs', {quotes: results})
+
+					// exemple de syntaxe pour render avec ejs:
+					// res.render(view, locals)
+				})
 				.catch(error => console.error(error))
 
-			// exemple de syntaxe pour render avec ejs:
-			// res.render(view, locals)
-			res.render('index.ejs', {})
+
 			// ancienne facon en passant par index html
 			//res.sendFile(__dirname + '/index.html')
 		})
@@ -47,10 +51,10 @@ MongoClient
 			res.send('Nous sommes des experts nodejs')
 		})
 		*/
-/*
-		app.get('/', (req, res) => {
-			res.sendFile(__dirname + '/index.html')
-		})*/
+		/*
+				app.get('/', (req, res) => {
+					res.sendFile(__dirname + '/index.html')
+				})*/
 		/*
 		app.get('/page1', (req, res) => {
 			res.sendFile(__dirname + '/page1.html')
@@ -60,18 +64,18 @@ MongoClient
 			res.sendFile(__dirname + '/page2.html')
 		})*/
 //app.post('/quotes', (req, res) => {console.log('Gilles')})
-/*
-		app.post('/quotes', (req, res) => {
-			console.log(req.body)
-		})
+		/*
+				app.post('/quotes', (req, res) => {
+					console.log(req.body)
+				})
 
-		/!*app.use(/!* ... *!/)
-		app.get(/!* ... *!/)
-		app.post(/!* ... *!/)
-		app.listen(/!* ... *!/)*!/
-	})
-	.catch(console.error)
-*/
+				/!*app.use(/!* ... *!/)
+				app.get(/!* ... *!/)
+				app.post(/!* ... *!/)
+				app.listen(/!* ... *!/)*!/
+			})
+			.catch(console.error)
+		*/
 		app.post('/quotes', (req, res) => {
 
 			quotesCollection.insertOne(req.body)
@@ -81,7 +85,8 @@ MongoClient
 
 				})
 
-				.catch(error => console.error(error)) })
+				.catch(error => console.error(error))
+		})
 
 	})
 
